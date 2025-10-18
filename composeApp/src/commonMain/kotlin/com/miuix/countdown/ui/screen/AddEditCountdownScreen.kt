@@ -27,11 +27,12 @@ fun AddEditCountdownScreen(
     var showTypeDropdown by remember { mutableStateOf(false) }
     
     // 日期倒计时
-    var selectedYear by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).year) }
-    var selectedMonth by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).monthNumber) }
-    var selectedDay by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).dayOfMonth) }
-    var selectedHour by remember { mutableStateOf(0) }
-    var selectedMinute by remember { mutableStateOf(0) }
+    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    var yearText by remember { mutableStateOf(now.year.toString()) }
+    var monthText by remember { mutableStateOf(now.monthNumber.toString()) }
+    var dayText by remember { mutableStateOf(now.dayOfMonth.toString()) }
+    var hourText by remember { mutableStateOf("0") }
+    var minuteText by remember { mutableStateOf("0") }
     
     // 定时器
     var timerHours by remember { mutableStateOf("0") }
@@ -130,22 +131,34 @@ fun AddEditCountdownScreen(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 TextField(
-                                    value = selectedYear.toString(),
-                                    onValueChange = { selectedYear = it.toIntOrNull() ?: selectedYear },
+                                    value = yearText,
+                                    onValueChange = { 
+                                        if (it.isEmpty() || it.all { c -> c.isDigit() }) {
+                                            yearText = it
+                                        }
+                                    },
                                     label = "年",
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     modifier = Modifier.weight(1f)
                                 )
                                 TextField(
-                                    value = selectedMonth.toString(),
-                                    onValueChange = { selectedMonth = (it.toIntOrNull() ?: selectedMonth).coerceIn(1, 12) },
+                                    value = monthText,
+                                    onValueChange = { 
+                                        if (it.isEmpty() || it.all { c -> c.isDigit() }) {
+                                            monthText = it
+                                        }
+                                    },
                                     label = "月",
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     modifier = Modifier.weight(1f)
                                 )
                                 TextField(
-                                    value = selectedDay.toString(),
-                                    onValueChange = { selectedDay = (it.toIntOrNull() ?: selectedDay).coerceIn(1, 31) },
+                                    value = dayText,
+                                    onValueChange = { 
+                                        if (it.isEmpty() || it.all { c -> c.isDigit() }) {
+                                            dayText = it
+                                        }
+                                    },
                                     label = "日",
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     modifier = Modifier.weight(1f)
@@ -157,15 +170,23 @@ fun AddEditCountdownScreen(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 TextField(
-                                    value = selectedHour.toString(),
-                                    onValueChange = { selectedHour = (it.toIntOrNull() ?: selectedHour).coerceIn(0, 23) },
+                                    value = hourText,
+                                    onValueChange = { 
+                                        if (it.isEmpty() || it.all { c -> c.isDigit() }) {
+                                            hourText = it
+                                        }
+                                    },
                                     label = "时",
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     modifier = Modifier.weight(1f)
                                 )
                                 TextField(
-                                    value = selectedMinute.toString(),
-                                    onValueChange = { selectedMinute = (it.toIntOrNull() ?: selectedMinute).coerceIn(0, 59) },
+                                    value = minuteText,
+                                    onValueChange = { 
+                                        if (it.isEmpty() || it.all { c -> c.isDigit() }) {
+                                            minuteText = it
+                                        }
+                                    },
                                     label = "分",
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                     modifier = Modifier.weight(1f)
@@ -227,12 +248,18 @@ fun AddEditCountdownScreen(
                             when (countdownType) {
                                 CountdownType.DATE -> {
                                     try {
+                                        val year = yearText.toIntOrNull() ?: return@Button
+                                        val month = monthText.toIntOrNull() ?: return@Button
+                                        val day = dayText.toIntOrNull() ?: return@Button
+                                        val hour = hourText.toIntOrNull() ?: 0
+                                        val minute = minuteText.toIntOrNull() ?: 0
+                                        
                                         val targetDateTime = LocalDateTime(
-                                            selectedYear,
-                                            selectedMonth,
-                                            selectedDay,
-                                            selectedHour,
-                                            selectedMinute
+                                            year,
+                                            month,
+                                            day,
+                                            hour,
+                                            minute
                                         )
                                         val targetInstant = targetDateTime.toInstant(TimeZone.currentSystemDefault())
                                         

@@ -185,6 +185,14 @@ fun CountdownCard(
                 color = MiuixTheme.colorScheme.primary
             )
             
+            Spacer(modifier = Modifier.height(4.dp))
+            
+            Text(
+                text = remaining.format(),
+                fontSize = 14.sp,
+                color = MiuixTheme.colorScheme.onSurfaceVariantSummary
+            )
+            
             Spacer(modifier = Modifier.height(8.dp))
             
             LinearProgressIndicator(

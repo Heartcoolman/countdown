@@ -1,0 +1,84 @@
+name: Release Build
+
+on:
+  push:
+    tags:
+      - 'v*'  # 当推送 v1.0.0 这样的标签时触发
+  release:
+    types: [created, published]
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+      
+    - name: 设置 JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+        
+    - name: 授予 Gradle 执行权限
+      run: chmod +x gradlew
+      
+    - name: 获取版本号
+      id: version
+      run: |
+        VERSION=${GITHUB_REF#refs/tags/v}
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Version: $VERSION"
+        
+    - name: 构建 Debug APK
+      run: ./gradlew assembleDebug --stacktrace
+      
+    - name: 重命名 Debug APK
+      run: |
+        cd composeApp/build/outputs/apk/debug
+        mv *.apk CountdownApp-v${{ steps.version.outputs.version }}-debug.apk || true
+        
+    - name: 上传到 Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          composeApp/build/outputs/apk/debug/*.apk
+        body: |
+          ## 倒计时应用 v${{ steps.version.outputs.version }}
+          
+          ### 功能特性
+          - 📅 日期倒计时
+          - ⏱️ 定时器倒计时
+          - ⏲️ 秒表功能
+          - 💾 数据持久化
+          - 🔔 通知提醒
+          - 📱 小米设备深度优化
+          
+          ### 下载说明
+          - **CountdownApp-debug.apk** - 调试版本（推荐测试使用）
+          
+          ### 系统要求
+          - Android 8.0 (API 26) 及以上
+          - 支持 Android 16 (API 35)
+          
+          ### 安装说明
+          1. 下载 APK 文件
+          2. 在设备上安装
+          3. 首次启动会显示权限引导（小米设备）
+          4. 按照提示完成设置即可使用
+          
+          ### 小米设备用户
+          请务必：
+          - ✅ 开启自启动权限
+          - ✅ 关闭电池优化
+          - ✅ 允许通知
+          
+          ---
+          **完整文档**: [项目主页](https://github.com/${{ github.repository }})
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

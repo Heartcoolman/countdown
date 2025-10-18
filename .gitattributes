@@ -1,0 +1,45 @@
+# 自动检测文本文件并标准化行尾
+* text=auto
+
+# Kotlin 源文件
+*.kt text diff=kotlin
+*.kts text diff=kotlin
+
+# Gradle 文件
+*.gradle text
+*.gradle.kts text
+gradle-wrapper.properties text
+gradlew text eol=lf
+gradlew.bat text eol=crlf
+
+# 配置文件
+*.xml text
+*.json text
+*.toml text
+*.properties text
+*.yml text
+*.yaml text
+
+# 文档文件
+*.md text
+*.txt text
+
+# 二进制文件
+*.jar binary
+*.apk binary
+*.ap_ binary
+*.dex binary
+*.class binary
+*.so binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ttf binary
+*.otf binary
+
+# 不要修改行尾的脚本
+*.sh text eol=lf
+*.bat text eol=crlf
+

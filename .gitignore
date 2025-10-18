@@ -1,0 +1,70 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+*.log
+*.swp
+*~
+.metadata
+.settings
+.project
+.classpath
+
+# Gradle
+.gradle/
+build/
+
+# Android Studio
+*.iml
+.idea/
+.navigation/
+captures/
+output.json
+
+# NDK
+obj/
+.externalNativeBuild/
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# 签名密钥（重要：不要提交到 GitHub！）
+*.jks
+*.keystore
+keystore.properties
+release-key.properties
+
+# 本地配置
+local.properties
+
+# 构建输出
+*.apk
+*.aab
+
+# 临时文件
+*.tmp
+*.bak
+*~
+
+# 日志文件
+*.log
+
+# Kotlin 编译缓存
+.kotlin/
+

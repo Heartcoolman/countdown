@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">倒计时</string>
+    
+    <!-- 通知渠道 -->
+    <string name="notification_channel_countdown_name">倒计时提醒</string>
+    <string name="notification_channel_countdown_desc">显示倒计时进度和提醒</string>
+    <string name="notification_channel_foreground_name">倒计时服务</string>
+    <string name="notification_channel_foreground_desc">保持倒计时运行</string>
+    
+    <!-- 权限请求 -->
+    <string name="permission_notification_rationale">需要通知权限以便及时提醒您</string>
+    <string name="permission_battery_rationale">为了确保倒计时准确，建议关闭电池优化</string>
+    <string name="permission_autostart_rationale">在小米设备上，请允许自启动以确保倒计时正常运行</string>
+    
+    <!-- 按钮 -->
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="go_settings">去设置</string>
+    
+    <!-- 小米/澎湃OS 适配 -->
+    <string name="miui_guide_title">小米设备权限设置</string>
+    <string name="miui_guide_summary">为确保倒计时功能正常运行，请完成以下设置</string>
+    <string name="miui_autostart_title">开启自启动</string>
+    <string name="miui_autostart_desc">允许应用在后台自动启动，确保倒计时提醒不被错过</string>
+    <string name="miui_battery_title">关闭电池优化</string>
+    <string name="miui_battery_desc">防止系统在省电时杀掉应用，保证倒计时准确性</string>
+    <string name="miui_alarm_title">精确闹钟权限</string>
+    <string name="miui_alarm_desc">允许应用在准确的时间发送提醒</string>
+    <string name="miui_notification_title">允许通知</string>
+    <string name="miui_notification_desc">接收倒计时结束通知和提醒</string>
+    <string name="miui_guide_understand">我知道了</string>
+    <string name="miui_multiwindow_support">支持多窗口和分屏模式</string>
+</resources>
+

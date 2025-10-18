@@ -20,11 +20,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: gradle
         
-    - name: 设置 Gradle Wrapper
-      uses: gradle/actions/wrapper-validation@v3
-      
     - name: 下载 Gradle Wrapper JAR
       run: |
         mkdir -p gradle/wrapper
@@ -33,15 +29,10 @@ jobs:
     - name: 授予 Gradle 执行权限
       run: chmod +x gradlew
       
-    - name: 缓存 Gradle 依赖
-      uses: actions/cache@v4
+    - name: 设置 Gradle
+      uses: gradle/gradle-build-action@v3
       with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
+        gradle-version: wrapper
           
     - name: 构建 Debug APK
       run: ./gradlew assembleDebug --stacktrace

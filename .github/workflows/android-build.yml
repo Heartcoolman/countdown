@@ -22,6 +22,14 @@ jobs:
         distribution: 'temurin'
         cache: gradle
         
+    - name: 设置 Gradle Wrapper
+      uses: gradle/actions/wrapper-validation@v3
+      
+    - name: 下载 Gradle Wrapper JAR
+      run: |
+        mkdir -p gradle/wrapper
+        curl -L -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/v8.11.1/gradle/wrapper/gradle-wrapper.jar
+      
     - name: 授予 Gradle 执行权限
       run: chmod +x gradlew
       
